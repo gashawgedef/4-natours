@@ -5,8 +5,16 @@ const morgan=require('morgan')
  const usersRouter=require('./routes/userRoutes')
 
 app = express();
-app.use(morgan('dev'))
+
 app.use(express.json());
+
+
+ if(process.env.NODE_ENV='development'){
+      app.use(morgan('dev'))
+ }
+// serving static files
+app.use(express.static(`${__dirname}/public`));
+// end of serving static files
 app.use((req,res,next)=>{
       console.log("Hello from middle ware")
       next()
